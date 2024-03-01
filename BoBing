@@ -1,0 +1,65 @@
+import random
+import matplotlib.pyplot as plt
+
+def roll_dice():
+    abc = []
+    for i in range(0,6):
+        abc.append(random.randint(1,6))
+    one = abc.count(1) #1字符出现的次数
+    two = abc.count(2)
+    three = abc.count(3)
+    four = abc.count(4)
+    five = abc.count(5)
+    six = abc.count(6)
+    if one == 6 or two == 6 or three == 6 or four == 6 or five == 6 or six ==6:
+        return 1 #六勃黑/红
+    elif one == 5 or two == 5 or three == 5 or four == 5 or five == 5 or six == 5:
+        return 2 #五子/红
+    elif four == 4:
+        return 3 #四红/状元插金花
+    elif one == 1 and two == 1 and three == 1 and four == 1 and five == 1 and six==1:
+        return 4 #对堂
+    elif four == 3:
+        return 5 #榜眼
+    elif one == 4 or two == 4 or three == 4 or five == 4 or six == 4:
+        return 6 #四进
+    elif four == 2:
+        return 7 #二举
+    elif four == 1:
+        return 8 #秀才
+    else: return 0
+
+#Below are the codes for visualization.
+x = 0
+List = [0,0,0,0,0,0,0,0,0]
+result = [[],[],[],[],[],[],[],[],[]]
+x_i=[]
+while x<10000:
+    x = x+1
+    x_i.append(x)
+    index = roll_dice()
+    List[index]+=1
+    for i in range(0,9):
+        result[i].append(List[i]/x)
+plt.plot(x_i[100:],result[0][100:],label = 'No awards')
+plt.plot(x_i[100:],result[1][100:],label = 'zhuangy6')
+plt.plot(x_i[100:],result[2][100:],label = 'zhuangy5')
+plt.plot(x_i[100:],result[3][100:],label = 'zhuangy4')
+plt.plot(x_i[100:],result[4][100:],label = 'duitang')
+plt.plot(x_i[100:],result[5][100:],label = 'bangyan')
+plt.plot(x_i[100:],result[6][100:],label = 'sijin')
+plt.plot(x_i[100:],result[7][100:],label = 'erju')
+plt.plot(x_i[100:],result[8][100:],label = 'xiucai')
+plt.legend()
+
+#output the outcomes
+y=0
+List1 = [0,0,0,0,0,0,0,0,0]
+result1 = [0,0,0,0,0,0,0,0,0]
+while y<1000000:
+    y+=1
+    index = roll_dice()
+    List1[index]+=1
+for i1 in range(0,9):
+        result1[i1]=List1[i1]/y
+result1
